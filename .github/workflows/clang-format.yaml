@@ -1,0 +1,22 @@
+name: clang-format
+
+on:
+  push:
+  pull_request:
+  schedule: # Trigger a job on master at midnight UTC every day
+    - cron: '0 0 * * *'
+
+jobs:
+  clang-format:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2.3.4
+        with:
+          submodules: 'recursive'
+
+      - name: Clang format Check
+        uses: DoozyX/clang-format-lint-action@master
+        with:
+          exclude: './mbed-os'
+          clangFormatVersion: 11
